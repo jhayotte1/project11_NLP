@@ -4,12 +4,15 @@ from df_constr import load_poetry_ids
 from rdflib import Graph
 from rdflib.namespace import DCTERMS
 import requests
+from tqdm import tqdm
 
 
 CACHE_DIR = "data/cache"
 LOVE_IDS_PATH = os.path.join(CACHE_DIR, "love_ids.json")
 HATE_IDS_PATH = os.path.join(CACHE_DIR, "hate_ids.json")
 RDF_BASE_DIR = "gutenberg_rdf/cache/epub"
+CSV_DIR = "data/csv"
+
 
 if os.path.exists(LOVE_IDS_PATH) and os.path.exists(HATE_IDS_PATH):
     hate_ids = load_poetry_ids(HATE_IDS_PATH)
@@ -108,7 +111,7 @@ def add_to_csv(
     tart: tuple,
     csv_file: str,
     ebook_dir: str = "data/texts",
-    csv_dir: str = "data/csv",
+    csv_dir: str = CSV_DIR,
 ):
     os.makedirs(csv_dir, exist_ok=True)
     csv_path = os.path.join(csv_dir, csv_file)
@@ -116,6 +119,35 @@ def add_to_csv(
     with open(csv_path, "w") as csvfile:
         write = csv.writer(csvfile)
         write.writerow((id, *tart))
+
+
+if __name__ == "__main__":
+    generate = True
+    if os.path.exists(CSV_DIR + "/love.csv"):
+        if not (input("CSV file for love found, do you want to regenerate it? Y/N: ").lower().strip() == "y"):
+            generate = False
+                
+    if generate:
+        print("Downloading and parsing love texts...")
+        for id in tqdm(love_ids):
+            url = get_url_for_download(id)
+            saved_path = download_text(id,url)
+            add_to_csv(id,clean_ebook(id),"love.csv")
+
+    generate = True
+    if os.path.exists(CSV_DIR + "/hate.csv"):
+        if not (input("CSV file for hate found, do you want to regenerate it? Y/N: ").lower().strip() == "y"):
+            generate = False
+                
+    if generate:
+        print("Downloading and parsing hate texts...")
+        for id in tqdm(hate_ids):
+            url = get_url_for_download(id)
+            saved_path = download_text(id,url)
+            add_to_csv(id,clean_ebook(id),"hate.csv")
+        
+
+
 
 
 ##Test
