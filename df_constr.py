@@ -196,20 +196,22 @@ def get_love_hate_from_poetry_ids(ids):
     return love, hate
 
 
-# poetry_ids, love_ids, hate_ids = get_poetry_ids_from_rawdata()
-# save_poetry_ids(poetry_ids)
 
-poetry_ids = get_or_build_poetry_ids()
-love_ids, hate_ids = get_love_hate_from_poetry_ids(poetry_ids)
+if __name__ == "__main__":
+    # poetry_ids, love_ids, hate_ids = get_poetry_ids_from_rawdata()
+    # save_poetry_ids(poetry_ids)
 
-# Save the results to a json file to prepare for scraping
-# Balance dataset by limiting to the first 250
+    poetry_ids = get_or_build_poetry_ids()
+    love_ids, hate_ids = get_love_hate_from_poetry_ids(poetry_ids)
 
-limit = 250
-save_poetry_ids(love_ids[:limit], LOVE_IDS_PATH)
-save_poetry_ids(hate_ids[:limit], HATE_IDS_PATH)
+    # Save the results to a json file to prepare for scraping
+    # Balance dataset by limiting to the first 250
 
-print("Total number of poetry books found : ", len(poetry_ids))
-print("Total number of Love poetry books found : ", len(love_ids))
-print("Total number of Hate poetry books found : ", len(hate_ids))
-print("Example of poetry ids : ", poetry_ids[:20])
+    limit = 250
+    save_poetry_ids(love_ids[:limit], LOVE_IDS_PATH)
+    save_poetry_ids(hate_ids[:limit], HATE_IDS_PATH)
+
+    print("Total number of poetry books found : ", len(poetry_ids))
+    print("Total number of Love poetry books found : ", len(love_ids))
+    print("Total number of Hate poetry books found : ", len(hate_ids))
+    print("Example of poetry ids : ", poetry_ids[:20])
