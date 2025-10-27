@@ -2,6 +2,7 @@ import os, glob
 from df_constr import load_poetry_ids
 from rdflib import Graph, Namespace
 from rdflib.namespace import DCTERMS, RDF
+import re
 import requests
 
 
@@ -19,8 +20,10 @@ else:
         "LOVE and HATE cache files not found, please run df_constr.py first"
     )
 
+
 def id_to_path(id):
     return os.path.join(RDF_BASE_DIR, str(id), f"pg{id}.rdf")
+
 
 def get_url_for_download(id):
     rdf_path = id_to_path(id)
@@ -30,19 +33,20 @@ def get_url_for_download(id):
         return None
     g = Graph()
 
-    try :
+    try:
         g.parse(rdf_path)
     except Exception as e:
         print(f"Error parsing RDF for id {id}: {e}")
         return None
-    
+
     for file_node in g.objects(None, DCTERMS.hasFormat):
         url = str(file_node)
         if url.endswith(f"{id}.txt.utf-8"):
             return url
     return None
 
-def download_text(id, url, save_dir = "data/texts"):
+
+def download_text(id, url, save_dir="data/texts"):
     os.makedirs(save_dir, exist_ok=True)
     save_path = os.path.join(save_dir, f"{id}.txt")
 
@@ -57,10 +61,53 @@ def download_text(id, url, save_dir = "data/texts"):
         print(f"Error downloading ebook {id}: {e}")
         return None
 
+
+def clean_ebook(id, ebook_dir="data/texts"):
+    TITLE_STRING = "Title: "
+    AUTHOR_STRING = "Author: "
+    RELEASE_STRING = "Release date: "
+    START_STRING = "*** START OF THE PROJECT GUTENBERG EBOOK"
+    END_STRING = "*** END OF THE PROJECT GUTENBERG EBOOK"
+
+    with open(os.path.join(ebook_dir, f"{id}.txt"), "r") as ebook:
+        title = ""
+        author = ""
+        release = ""
+        text = ""
+
+        for line in ebook:
+            if line.startswith(TITLE_STRING):
+                title = line[7:].strip("\n")
+                break
+
+        for line in ebook:
+            if line.startswith(AUTHOR_STRING):
+                author = line[8:].strip("\n")
+                break
+
+        for line in ebook:
+            if line.startswith(RELEASE_STRING):
+                release = list(line[14:])
+                release = "".join(release[: release.index("[") - 1]).strip("\n")
+                break
+
+        for line in ebook:
+            if line.startswith(START_STRING):
+                break
+
+        for line in ebook:
+            if line.startswith(END_STRING):
+                break
+            text += " " + line.strip("\n\r")
+
+        return title, author, release, text
+
+
 ##Test
-#id = love_ids[0]
-#print(id)
-#url = get_url_for_download(id)
-#print(url)
-#saved_path = download_text(id, url)
-#print(saved_path)
+# id = love_ids[0]
+# print(id)
+# url = get_url_for_download(id)
+# print(url)
+# saved_path = download_text(id, url)
+# print(saved_path)
+# print(clean_ebook(id))
