@@ -42,3 +42,25 @@ def get_url_for_download(id):
             return url
     return None
 
+def download_text(id, url, save_dir = "data/texts"):
+    os.makedirs(save_dir, exist_ok=True)
+    save_path = os.path.join(save_dir, f"{id}.txt")
+
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        with open(save_path, "w", encoding="utf-8") as f:
+            f.write(response.text)
+        print(f"Saved ebook {id}.txt")
+        return save_path
+    except Exception as e:
+        print(f"Error downloading ebook {id}: {e}")
+        return None
+
+##Test
+#id = love_ids[0]
+#print(id)
+#url = get_url_for_download(id)
+#print(url)
+#saved_path = download_text(id, url)
+#print(saved_path)

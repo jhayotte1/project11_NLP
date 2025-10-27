@@ -1,2 +1,5 @@
 gutenberg_rdf/
 .venv
+
+__pycache__/
+*.pyc
