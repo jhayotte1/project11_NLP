@@ -7,7 +7,14 @@ Project 11 : Natural Language Processing : Love and Hate in Poetry
 
 [Machine readable index](https://www.gutenberg.org/cache/epub/feeds/rdf-files.tar.bz2)
 
-We have used this index for scraping and identifying similar poems
+We have used this index for scraping and identifying similar poems, the file hierarchy should look like this after unzipping:
+```
+project11_NLP/
+├── gutenberg_rdf/
+│   └── cache/
+│       └── epub/
+│           └── (RDF FILES)
+```
 
 ## Dependencies
 
