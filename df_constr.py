@@ -6,6 +6,8 @@ from tqdm import tqdm
 
 CACHE_DIR = "data/cache"
 POETRY_IDS_PATH = os.path.join(CACHE_DIR, "poetry_ids.json")
+LOVE_IDS_PATH = os.path.join(CACHE_DIR, "love_ids.json")
+HATE_IDS_PATH = os.path.join(CACHE_DIR, "hate_ids.json")
 
 RDF_PATH = "gutenberg_rdf/cache/epub/*/*.rdf"
 RDF_BASE_DIR = "gutenberg_rdf/cache/epub"
@@ -199,6 +201,13 @@ def get_love_hate_from_poetry_ids(ids):
 
 poetry_ids = get_or_build_poetry_ids()
 love_ids, hate_ids = get_love_hate_from_poetry_ids(poetry_ids)
+
+# Save the results to a json file to prepare for scraping
+# Balance dataset by limiting to the first 250
+
+limit = 250
+save_poetry_ids(love_ids[:limit], LOVE_IDS_PATH)
+save_poetry_ids(hate_ids[:limit], HATE_IDS_PATH)
 
 print("Total number of poetry books found : ", len(poetry_ids))
 print("Total number of Love poetry books found : ", len(love_ids))
