@@ -1,8 +1,8 @@
-import os, glob
+import os
+import csv
 from df_constr import load_poetry_ids
-from rdflib import Graph, Namespace
-from rdflib.namespace import DCTERMS, RDF
-import re
+from rdflib import Graph
+from rdflib.namespace import DCTERMS
 import requests
 
 
@@ -62,7 +62,7 @@ def download_text(id, url, save_dir="data/texts"):
         return None
 
 
-def clean_ebook(id, ebook_dir="data/texts"):
+def clean_ebook(id: int, ebook_dir: str = "data/texts") -> (str, str, str, str):
     TITLE_STRING = "Title: "
     AUTHOR_STRING = "Author: "
     RELEASE_STRING = "Release date: "
@@ -103,6 +103,21 @@ def clean_ebook(id, ebook_dir="data/texts"):
         return title, author, release, text
 
 
+def add_to_csv(
+    id: int,
+    tart: tuple,
+    csv_file: str,
+    ebook_dir: str = "data/texts",
+    csv_dir: str = "data/csv",
+):
+    os.makedirs(csv_dir, exist_ok=True)
+    csv_path = os.path.join(csv_dir, csv_file)
+
+    with open(csv_path, "w") as csvfile:
+        write = csv.writer(csvfile)
+        write.writerow((id, *tart))
+
+
 ##Test
 # id = love_ids[0]
 # print(id)
@@ -110,4 +125,4 @@ def clean_ebook(id, ebook_dir="data/texts"):
 # print(url)
 # saved_path = download_text(id, url)
 # print(saved_path)
-# print(clean_ebook(id))
+# add_to_csv(id, clean_ebook(id), "love.csv")
