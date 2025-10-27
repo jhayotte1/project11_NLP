@@ -8,3 +8,10 @@ Project 11 : Natural Language Processing : Love and Hate in Poetry
 [Machine readable index](https://www.gutenberg.org/cache/epub/feeds/rdf-files.tar.bz2)
 
 We have used this index for scraping and identifying similar poems
+
+## Dependencies
+
+Install the required dependencies:
+```bash
+pip install -r requirements.txt
+```
