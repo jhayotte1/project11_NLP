@@ -22,3 +22,9 @@ Install the required dependencies:
 ```bash
 pip install -r requirements.txt
 ```
+
+# Tasks
+
+## 2
+
+![Histogram of publication dates based on category](./img/histogram_of_publication.png)

@@ -1,3 +1,5 @@
 rdflib
 tqdm
 requests
+pandas
+numpy
