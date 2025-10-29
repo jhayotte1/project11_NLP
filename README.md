@@ -27,4 +27,6 @@ pip install -r requirements.txt
 
 ## 2
 
+Task is implemented in `histogram_of_publication.py`:
+
 ![Histogram of publication dates based on category](./img/histogram_of_publication.png)
