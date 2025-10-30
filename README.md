@@ -25,6 +25,10 @@ pip install -r requirements.txt
 
 # Tasks
 
+## 1
+
+Task is implemented in 'dataframe_stat.py'
+
 ## 2
 
 Task is implemented in `histogram_of_publication.py`:
