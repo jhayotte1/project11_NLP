@@ -29,6 +29,8 @@ pip install -r requirements.txt
 
 Task is implemented in 'dataframe_stat.py'
 
+![DataFrame description table (Number of token, vocabulary size, number of books)](./img/dataframe_description_table.png)
+
 ## 2
 
 Task is implemented in `histogram_of_publication.py`:
