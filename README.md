@@ -30,3 +30,7 @@ pip install -r requirements.txt
 Task is implemented in `histogram_of_publication.py`:
 
 ![Histogram of publication dates based on category](./img/histogram_of_publication.png)
+
+## 2
+
+![Love and Hate words quantified](./img/love_and_hate_words.png)
