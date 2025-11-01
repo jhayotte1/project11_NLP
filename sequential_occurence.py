@@ -54,7 +54,7 @@ if __name__ == "__main__":
     max_distance = data['Distances'].quantile(0.95)
     data_filtered = data[data['Distances'] <= max_distance]
                                            
-    sns.histplot(data=data_filtered, discrete=True, x='Distances', hue='Type', bins=10, multiple='dodge', palette=['r','g','b','y'])
+    sns.histplot(data=data_filtered, x='Distances', hue='Type', bins=10, multiple='dodge', palette=['r','g','b','y'])
     plt.xlabel("Distances")
     plt.ylabel("Occurences")
     plt.title("Distances between Love and Hate related words in Love and Hate poems")
