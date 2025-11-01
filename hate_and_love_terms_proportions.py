@@ -9,27 +9,27 @@ CSV_DIR = "data/csv"
 
 # Collected from: https://wordnik.com/words/hate 
 hate_vocab = {
-'hate','abhor', 'abhorrence', 'abhorrent', 'abominable', 'abominate', 'abomination',
-'accursed', 'acrimonious', 'allergy', 'anathema', 'animosity', 'animus',
-'antagonism', 'antipathy', 'aversion', 'bear a grudge', 'bear ill will',
-'bear malice', 'belligerence', 'bete noire', 'bitchy', 'bitter', 'black',
-'blasphemous', 'catty', 'clash', 'clashing', 'cold sweat', 'collision',
-'conflict', 'contemn', 'contemptible', 'contention', 'creeping flesh',
-'damnable', 'deprecate', 'despicable', 'despise', 'despite', 'despiteful',
-'despitefulness', 'detest', 'detestable', 'detestation', 'disapprove',
-'disdain', 'disfavor', 'disgust', 'dislike', 'disrelish', 'distasteful',
-'distressing', 'enmity', 'evil', 'execrable', 'execrate', 'execration',
-'foul', 'friction', 'hateful', 'hatred', 'hold in abomination',
-'hold it against', 'horrid', 'horror', 'hostility', 'ill will',
-'ill-natured', 'infamous', 'loathe', 'loathing', 'malevolence',
-'malevolent', 'malice', 'malign', 'malignity', 'mean', 'mislike',
-'mortal horror', 'nasty', 'nausea', 'not care for', 'obnoxious',
-'odious', 'odium', 'opprobrious', 'owe a grudge', 'peeve', 'pet peeve',
-'phobia', 'quarrelsomeness', 'rancor', 'repellent', 'reprehensible',
-'repugnance', 'repulsion', 'repulsive', 'resent', 'resentful', 'resist',
-'revulsion', 'scorn', 'scurvy', 'shrink from', 'shudder at', 'shuddering',
-'spite', 'spiteful', 'spitefulness', 'trouble', 'unspeakable',
-'utterly detest', 'vicious', 'vile', 'hate'
+    'hate','abhor', 'abhorrence', 'abhorrent', 'abominable', 'abominate', 'abomination',
+    'accursed', 'acrimonious', 'allergy', 'anathema', 'animosity', 'animus',
+    'antagonism', 'antipathy', 'aversion', 'bear a grudge', 'bear ill will',
+    'bear malice', 'belligerence', 'bete noire', 'bitchy', 'bitter', 'black',
+    'blasphemous', 'catty', 'clash', 'clashing', 'cold sweat', 'collision',
+    'conflict', 'contemn', 'contemptible', 'contention', 'creeping flesh',
+    'damnable', 'deprecate', 'despicable', 'despise', 'despite', 'despiteful',
+    'despitefulness', 'detest', 'detestable', 'detestation', 'disapprove',
+    'disdain', 'disfavor', 'disgust', 'dislike', 'disrelish', 'distasteful',
+    'distressing', 'enmity', 'evil', 'execrable', 'execrate', 'execration',
+    'foul', 'friction', 'hateful', 'hatred', 'hold in abomination',
+    'hold it against', 'horrid', 'horror', 'hostility', 'ill will',
+    'ill-natured', 'infamous', 'loathe', 'loathing', 'malevolence',
+    'malevolent', 'malice', 'malign', 'malignity', 'mean', 'mislike',
+    'mortal horror', 'nasty', 'nausea', 'not care for', 'obnoxious',
+    'odious', 'odium', 'opprobrious', 'owe a grudge', 'peeve', 'pet peeve',
+    'phobia', 'quarrelsomeness', 'rancor', 'repellent', 'reprehensible',
+    'repugnance', 'repulsion', 'repulsive', 'resent', 'resentful', 'resist',
+    'revulsion', 'scorn', 'scurvy', 'shrink from', 'shudder at', 'shuddering',
+    'spite', 'spiteful', 'spitefulness', 'trouble', 'unspeakable',
+    'utterly detest', 'vicious', 'vile', 'hate'
 }
 
 # Collected from: https://wordnik.com/words/love
