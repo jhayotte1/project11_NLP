@@ -21,7 +21,7 @@ HATE_CSV =  os.path.join(CSV_DIR, "hate.csv")
 TEXT_COLUMN = 4
 
 PARTIAL_DIR = "data/csv/partial_context_count"
-OUT_DIR = "data/csv/context_counts"
+OUT_DIR = "data/csv/context_count"
 
 #spaCy Pipeline
 nlp = spacy.load("en_core_web_sm", disable=["ner", "parser", "textcat"])
@@ -244,6 +244,13 @@ def counter_context_stream(csv_path: str, matcher: Matcher, nlp_model, text_col:
     return counter
 
 
+def csv_to_counter(csv_path: str) -> Counter:
+    df = pd.read_csv(csv_path, index_col=0)
+    if df.shape[1] == 1:
+        df = df.iloc[:, 0]
+    return Counter(df.to_dict())
+
+
 def make_wordcloud(counter, title, save_path, max_words=200):
     freqs = dict(counter)
     wc = WordCloud(
@@ -265,6 +272,9 @@ def make_wordcloud(counter, title, save_path, max_words=200):
     plt.show()
 
 
+
+
+
 if __name__ == "__main__":
     print("Preparing patterns...")
     love_patterns = prepare_vocab(love_vocab, nlp)
@@ -279,16 +289,19 @@ if __name__ == "__main__":
 
     print("Counting love contexts...")
 
-    print("LOVE-in-LOVE ...")
-    love_in_love = counter_context_stream(
-        LOVE_CSV, love_matcher, nlp, TEXT_COLUMN, CHUNK_TOKENS, overlap_love, out_partial=os.path.join(PARTIAL_DIR, "love_in_love_partial.csv")
-    )
-    pd.Series(love_in_love).sort_values(ascending=False).to_csv(os.path.join(OUT_DIR, "love_in_love_counts.csv"))
+    #print("LOVE-in-LOVE ...")
+    #love_in_love = counter_context_stream(
+    #    LOVE_CSV, love_matcher, nlp, TEXT_COLUMN, CHUNK_TOKENS, overlap_love, out_partial=os.path.join(PARTIAL_DIR, "love_in_love_partial.csv")
+    #)
+    #pd.Series(love_in_love).sort_values(ascending=False).to_csv(os.path.join(OUT_DIR, "love_in_love_counts.csv"))
+
+    love_in_love = csv_to_counter(os.path.join(OUT_DIR, "love_in_love_counts.csv"))
 
     print("HATE-in-LOVE ...")
     hate_in_love = counter_context_stream(
         LOVE_CSV, hate_matcher, nlp, TEXT_COLUMN, CHUNK_TOKENS, overlap_hate, out_partial=os.path.join(PARTIAL_DIR, "hate_in_love_partial.csv")
     )
+    pd.Series(hate_in_love).sort_values(ascending=False).to_csv(os.path.join(OUT_DIR, "hate_in_love_counts.csv"))
 
     print("LOVE-in-HATE ...")
     love_in_hate = counter_context_stream(

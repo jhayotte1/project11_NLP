@@ -4,3 +4,4 @@ gutenberg_rdf/
 __pycache__/
 *.pyc
 data/texts/
+data/csv/partial_context_count/
