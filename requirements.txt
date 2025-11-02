@@ -3,3 +3,4 @@ tqdm
 requests
 pandas
 numpy
+fasttext

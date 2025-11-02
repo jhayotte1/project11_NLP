@@ -37,7 +37,7 @@ Task is implemented in `histogram_of_publication.py`:
 
 ![Histogram of publication dates based on category](./img/histogram_of_publication.png)
 
-## 2
+## 3
 
 ![Love and Hate words quantified](./img/love_and_hate_words.png)
 
@@ -54,10 +54,15 @@ Task is implemented in `histogram_of_publication.py`:
 ## 6
 
 
-## 7
+## 7 and 8
 
-
-## 8
+Average Semantic Similarity between top 100 frequent words and vocabularies:
+```
+Love & Love Vocab: 0.35974183678627014
+Hate & Love Vocab: 0.3619268536567688
+Hate & Hate Vocab: 0.3463706374168396
+Love & Hate Vocab: 0.3427005112171173
+``` 
 
 
 ## 9
