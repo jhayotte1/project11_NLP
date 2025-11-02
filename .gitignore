@@ -5,3 +5,4 @@ __pycache__/
 *.pyc
 data/texts/
 data/csv/partial_context_count/
+cc.en.300.bin

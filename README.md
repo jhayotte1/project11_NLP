@@ -40,3 +40,30 @@ Task is implemented in `histogram_of_publication.py`:
 ## 2
 
 ![Love and Hate words quantified](./img/love_and_hate_words.png)
+
+## 4
+
+![Love in Love dataframe context word wordcloud](./img/love_in_love_context_wordcloud.png)
+![Love in Hate dataframe context word wordcloud](./img/love_in_hate_context_wordcloud.png)
+![Hate in Love dataframe context word wordcloud](./img/hate_in_love_context_wordcloud.png)
+![Hate in Hate dataframe context word wordcloud](./img/hate_in_hate_context_wordcloud.png)
+
+## 5
+
+
+## 6
+
+
+## 7
+
+
+## 8
+
+
+## 9
+
+
+## 10
+
+
+## 11
