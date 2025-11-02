@@ -55,12 +55,14 @@ def plot_table_summary(summary):
 
     cell_text = shown.astype(str).values.tolist()
     col_labels = list(shown.columns)
+    row_labels = list(shown.index)
     n_rows = len(cell_text)
     fig, ax = plt.subplots(figsize=(8, 1.2 + 0.6 * max(n_rows, 1)))
     ax.axis("off")
     table = ax.table(
         cellText=cell_text,
         colLabels=col_labels,
+        rowLabels=row_labels,
         cellLoc="center",
         colLoc="center",
         loc="center"
@@ -114,7 +116,7 @@ if __name__ == "__main__":
             "max_similarity": hate_max_sim,
             "min_similarity": hate_min_sim
         }
-    ])
+    ], index=['Love', 'Hate'])
 
     plot_table_summary(summary)
 
