@@ -20,9 +20,8 @@ LOVE_CSV = os.path.join(CSV_DIR, "love.csv")
 HATE_CSV =  os.path.join(CSV_DIR, "hate.csv")
 TEXT_COLUMN = 4
 
-#OUTPUT
-OUT_LOVE = "love_context_counts.csv"
-OUT_HATE = "hate_context_counts.csv"
+PARTIAL_DIR = "data/csv/partial_context_count"
+OUT_DIR = "data/csv/context_counts"
 
 #spaCy Pipeline
 nlp = spacy.load("en_core_web_sm", disable=["ner", "parser", "textcat"])
@@ -181,7 +180,7 @@ def iter_sub_texts(text: str, nlp_model, max_tokens: int, overlap: int):
     L = len(text)
     if L >= nlp_model.max_length:
         nlp_model.max_length = L + 1000
-        
+
     base_doc = nlp_model.make_doc(text)
     N = len(base_doc)
     if N==0:
@@ -279,17 +278,33 @@ if __name__ == "__main__":
     hate_matcher = build_matcher_from_lemmas(hate_patterns, nlp)
 
     print("Counting love contexts...")
-    love_counts = counter_context_stream(
-        LOVE_CSV, love_matcher, nlp, TEXT_COLUMN, CHUNK_TOKENS, overlap_love, out_partial="love_partial_counts.csv"
-    )
-    pd.Series(love_counts).sort_values(ascending=False).to_csv(OUT_LOVE)
 
-    print("Counting hate contexts...")
-    hate_counts = counter_context_stream(
-        HATE_CSV, hate_matcher, nlp, TEXT_COLUMN, CHUNK_TOKENS, overlap_hate, out_partial="hate_partial_counts.csv"
+    print("LOVE-in-LOVE ...")
+    love_in_love = counter_context_stream(
+        LOVE_CSV, love_matcher, nlp, TEXT_COLUMN, CHUNK_TOKENS, overlap_love, out_partial=os.path.join(PARTIAL_DIR, "love_in_love_partial.csv")
     )
-    pd.Series(hate_counts).sort_values(ascending=False).to_csv(OUT_HATE)
+    pd.Series(love_in_love).sort_values(ascending=False).to_csv(os.path.join(OUT_DIR, "love_in_love_counts.csv"))
+
+    print("HATE-in-LOVE ...")
+    hate_in_love = counter_context_stream(
+        LOVE_CSV, hate_matcher, nlp, TEXT_COLUMN, CHUNK_TOKENS, overlap_hate, out_partial=os.path.join(PARTIAL_DIR, "hate_in_love_partial.csv")
+    )
+
+    print("LOVE-in-HATE ...")
+    love_in_hate = counter_context_stream(
+        HATE_CSV, love_matcher, nlp, TEXT_COLUMN, CHUNK_TOKENS, overlap_hate, out_partial=os.path.join(PARTIAL_DIR, "love_in_hate_partial.csv")
+    )
+    pd.Series(love_in_hate).sort_values(ascending=False).to_csv(os.path.join(OUT_DIR, "love_in_hate_counts.csv"))
+
+    print("HATE-in-HATE ...")
+    hate_in_hate = counter_context_stream(
+        HATE_CSV, hate_matcher, nlp, TEXT_COLUMN, CHUNK_TOKENS, overlap_hate, out_partial=os.path.join(PARTIAL_DIR, "hate_in_hate_partial.csv")
+    )
+    pd.Series(hate_in_hate).sort_values(ascending=False).to_csv(os.path.join(OUT_DIR, "hate_in_hate_counts.csv"))
+
 
     print("Generating word clouds...")
-    make_wordcloud(love_counts, "Love Context Words", "love_context_wordcloud.png", max_words=200)
-    make_wordcloud(hate_counts, "Hate Context Words", "hate_context_wordcloud.png", max_words=200)
+    make_wordcloud(love_in_love, "Love context in LOVE dataframe", "love_in_love_context_wordcloud.png", max_words=200)
+    make_wordcloud(hate_in_love, "Hate context in LOVE dataframe", "hate_in_love_context_wordcloud.png", max_words=200)
+    make_wordcloud(love_in_hate, "Love context in HATE dataframe", "love_in_hate_context_wordcloud.png", max_words=200)
+    make_wordcloud(hate_in_hate, "Hate context in HATE dataframe", "hate_in_hate_context_wordcloud.png", max_words=200)
