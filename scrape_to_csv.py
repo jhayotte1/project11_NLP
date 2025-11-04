@@ -76,6 +76,8 @@ def clean_ebook(id: int, ebook_dir: str = "data/texts") -> (str, str, str, str):
     ILLUSTRATOR_STRING = "Illustrator: "
     RELEASE_STRING = "Release date: "
     COMPILER_STRING = "Compiler: "
+    PUBLISHER_STRING = "Publisher: "
+    DUBIOUS_STRING = "Dubious author: "
 
     START_STRING = "*** START OF THE PROJECT GUTENBERG EBOOK"
     END_STRING = "*** END OF THE PROJECT GUTENBERG EBOOK"
@@ -117,6 +119,12 @@ def clean_ebook(id: int, ebook_dir: str = "data/texts") -> (str, str, str, str):
                 break
             elif line.startswith(ILLUSTRATOR_STRING):
                 author = line[13:].strip("\n")
+                break
+            elif line.startswith(PUBLISHER_STRING):
+                author = line[11:].strip("\n")
+                break
+            elif line.startswith(DUBIOUS_STRING):
+                author = line[16:].strip("\n")
                 break
 
         for line in ebook:
