@@ -1,10 +1,10 @@
 import os
 import requests
+import gzip, shutil
 import fasttext
 import fasttext.util
 import pandas as pd
 import numpy as np
-import gzip, shutil
 from sklearn.metrics.pairwise import cosine_similarity
 import matplotlib.pyplot as plt 
 
