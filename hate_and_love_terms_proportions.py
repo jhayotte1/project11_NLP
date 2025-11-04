@@ -8,7 +8,7 @@ from nltk.stem.porter import *
 CSV_DIR = "data/csv"
 
 # Collected from: https://wordnik.com/words/hate 
-hate_vocab = {
+hate_vocab: set = {
     'hate','abhor', 'abhorrence', 'abhorrent', 'abominable', 'abominate', 'abomination',
     'accursed', 'acrimonious', 'allergy', 'anathema', 'animosity', 'animus',
     'antagonism', 'antipathy', 'aversion', 'bear a grudge', 'bear ill will',
@@ -33,7 +33,7 @@ hate_vocab = {
 }
 
 # Collected from: https://wordnik.com/words/love
-love_vocab = {
+love_vocab: set = {
     'love', 'fondness', 'fortitude', 'freak out on', 'frictionlessness', 'friendliness',
     'friendship', 'frigidity', 'fuck', 'generosity', 'get high on', 'girl',
     'giving', 'gloat over', 'go for', 'good vibes', 'good vibrations',

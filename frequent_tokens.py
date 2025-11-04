@@ -1,12 +1,16 @@
 from hate_and_love_terms_proportions import love_vocab,hate_vocab, CSV_DIR
 import os
 from pandas import read_csv
+import pandas as pd
 import nltk
 from nltk.corpus import stopwords
 from collections import Counter
 import fasttext
 import numpy as np
 from tqdm import tqdm
+from fuzzywuzzy import fuzz
+import matplotlib.pyplot as plt
+
 
 MODEL_PATH = os.path.join("data/models/fasttext.bin")
 
@@ -35,6 +39,8 @@ def average_semantic_similarity(text_words, vocab_words, model):
 
     return np.mean(sims)
 
+def matching_strings(text_words: set, vocab_words: set):
+    return fuzz.ratio(text_words, vocab_words)
 
 if __name__ == "__main__":
     love = read_csv(os.path.join(CSV_DIR, "love.csv"))
@@ -56,11 +62,31 @@ if __name__ == "__main__":
         model.save_model(MODEL_PATH)
         os.remove("temp.txt")
 
-    top_love = top_frequency(love_texts)
-    top_hate = top_frequency(hate_texts)
+    top_love: set = set(top_frequency(love_texts))
+    top_hate: set = set(top_frequency(hate_texts))
 
-    print(f"Love & Love Vocab: {average_semantic_similarity(top_love, love_vocab, model)}")
-    print(f"Hate & Love Vocab: {average_semantic_similarity(top_hate, love_vocab, model)}")
-    print(f"Hate & Hate Vocab: {average_semantic_similarity(top_hate, hate_vocab, model)}")
-    print(f"Love & Hate Vocab: {average_semantic_similarity(top_love, hate_vocab, model)}")
+    comparisons = ['Love & Love Vocab', 'Hate & Love Vocab', 'Hate & Hate Vocab', 'Love & Hate Vocab']
+    top_lists = [top_love, top_hate, top_hate, top_love]
+    vocab_lists = [love_vocab, love_vocab, hate_vocab, hate_vocab]
+
+    df = pd.DataFrame({
+        'Comparison': comparisons,
+        'Semantic Similarity': [average_semantic_similarity(top, vocab, model) 
+                               for top, vocab in zip(top_lists, vocab_lists)],
+        'Fuzzy Matching': [matching_strings(top, vocab) 
+                          for top, vocab in zip(top_lists, vocab_lists)]
+    })
+    
+    ig, ax = plt.subplots(figsize=(10, 4))
+    ax.axis('tight')
+    ax.axis('off')
+
+    table = ax.table(cellText=df.values, 
+                    colLabels=df.columns,
+                    cellLoc='center',
+                    loc='center')
+
+    plt.savefig(os.path.join("img/", "frequent_tokens_comparison.png"), bbox_inches='tight', dpi=300)
+    plt.close()
+    print(df)
 
