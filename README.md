@@ -67,8 +67,10 @@ Love & Hate Vocab: 0.3427005112171173
 
 ## 9
 
+![Diversity of each dataframe using similarity among title of ebooks](./img/dataframes_title_similarity.png)
 
 ## 10
+
 
 
 ## 11
