@@ -289,13 +289,13 @@ if __name__ == "__main__":
 
     print("Counting love contexts...")
 
-    #print("LOVE-in-LOVE ...")
-    #love_in_love = counter_context_stream(
-    #    LOVE_CSV, love_matcher, nlp, TEXT_COLUMN, CHUNK_TOKENS, overlap_love, out_partial=os.path.join(PARTIAL_DIR, "love_in_love_partial.csv")
-    #)
-    #pd.Series(love_in_love).sort_values(ascending=False).to_csv(os.path.join(OUT_DIR, "love_in_love_counts.csv"))
+    print("LOVE-in-LOVE ...")
+    love_in_love = counter_context_stream(
+       LOVE_CSV, love_matcher, nlp, TEXT_COLUMN, CHUNK_TOKENS, overlap_love, out_partial=os.path.join(PARTIAL_DIR, "love_in_love_partial.csv")
+    )
+    pd.Series(love_in_love).sort_values(ascending=False).to_csv(os.path.join(OUT_DIR, "love_in_love_counts.csv"))
 
-    love_in_love = csv_to_counter(os.path.join(OUT_DIR, "love_in_love_counts.csv"))
+    # love_in_love = csv_to_counter(os.path.join(OUT_DIR, "love_in_love_counts.csv"))
 
     print("HATE-in-LOVE ...")
     hate_in_love = counter_context_stream(
