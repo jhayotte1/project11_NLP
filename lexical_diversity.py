@@ -234,11 +234,11 @@ def plot_hist(bin_sub, count, love):
     if love:
         plt.title("Histogram of LD Love poem : number of line for 10 subdivisions")
         plt.grid(True, linestyle="--", alpha=0.4)
-        plt.savefig(os.path.join("img", "LD_love_number_line_per_subdiv_histogram.png"))
+        plt.savefig(os.path.join("img", "LD_love_subdiv_histogram.png"))
     else:
         plt.title("Histogram of LD Hate poem : number of line for 10 subdivisions")
         plt.grid(True, linestyle="--", alpha=0.4)
-        plt.savefig(os.path.join("img", "LD_hate_number_line_per_subdiv_histogram.png"))
+        plt.savefig(os.path.join("img", "LD_hate_subdiv_histogram.png"))
 
     plt.show()
 
