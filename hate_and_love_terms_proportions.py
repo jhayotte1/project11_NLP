@@ -4,6 +4,10 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 from nltk.stem.porter import *
+from nltk.tokenize import word_tokenize
+from nltk.stem import PorterStemmer
+from tqdm import tqdm
+
 
 CSV_DIR = "data/csv"
 
@@ -74,9 +78,24 @@ love_vocab: set = {
 
 stemmer = PorterStemmer()
 
-hate_vocab = [stemmer.stem(word) for word in hate_vocab if ' ' not in word]  
-love_vocab = [stemmer.stem(word) for word in love_vocab if ' ' not in word]  
+hate_vocab = set([stemmer.stem(word) for word in hate_vocab if ' ' not in word])
+love_vocab = set([stemmer.stem(word) for word in love_vocab if ' ' not in word])
 
+
+def proportion_of_words(texts, vocab):
+    
+    stemmer = PorterStemmer()
+    matching_total = 0
+    total_tokens = 0
+    for text in tqdm(texts, desc="Analyzing proportion of vocabulary in poems"):
+        matching = 0
+        text = word_tokenize(text)
+        total_tokens += len(text)
+        for w in text:
+            if stemmer.stem(w) in vocab:
+                matching += 1
+        matching_total += matching
+    return matching_total/total_tokens/len(vocab)
 
 if __name__ == "__main__":
     
@@ -87,11 +106,11 @@ if __name__ == "__main__":
     
     # Summing over all texts in Hate and Love and the occurences of Hate and Love words
     # We normalize by the length of the respective set to make the size of the related words list less relevant 
-    love_in_love = sum([sum([text.count(w) for w in love_vocab])/len(love_vocab) for text in love_texts])
-    hate_in_love = sum([sum([text.count(w) for w in hate_vocab])/len(hate_vocab) for text in love_texts])
+    love_in_love = proportion_of_words(love_texts,love_vocab)
+    hate_in_love = proportion_of_words(love_texts,hate_vocab)    
     
-    love_in_hate = sum([sum([text.count(w) for w in love_vocab])/len(love_vocab) for text in hate_texts])
-    hate_in_hate = sum([sum([text.count(w) for w in hate_vocab])/len(hate_vocab) for text in hate_texts])
+    love_in_hate = proportion_of_words(hate_texts,love_vocab)
+    hate_in_hate = proportion_of_words(hate_texts,hate_vocab)
 
     data = pd.DataFrame({
         'Category': ['Love Poems', 'Love Poems', 'Hate Poems', 'Hate Poems'],
