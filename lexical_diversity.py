@@ -287,10 +287,12 @@ def parametric_fitting(bin_sub, count, title):
     poly_fit_3 = poly(x, y, 3)
     poly_fit_4 = poly(x, y, 4)
     poly_fit_5 = poly(x, y, 5)
+    poly_fit_8 = poly(x, y, 8)
     y_poly_2 = poly_fit_2(x)
     y_poly_3 = poly_fit_3(x)
     y_poly_4 = poly_fit_4(x)
     y_poly_5 = poly_fit_5(x)
+    y_poly_8 = poly_fit_8(x)
 
 
     r2_exp = r2_score(y, y_exp)
@@ -299,6 +301,7 @@ def parametric_fitting(bin_sub, count, title):
     r2_poly_3 = r2_score(y, y_poly_3)
     r2_poly_4 = r2_score(y, y_poly_4)
     r2_poly_5 = r2_score(y, y_poly_5)
+    r2_poly_8 = r2_score(y, y_poly_8)
 
     print(f"Parametric fitting for {title}")
     print(f"R² Exponential : {r2_exp:.4f}")
@@ -307,6 +310,7 @@ def parametric_fitting(bin_sub, count, title):
     print(f"R² Polynomial(3) : {r2_poly_3:.4f}")
     print(f"R² Polynomial(4) : {r2_poly_4:.4f}")
     print(f"R² Polynomial(5) : {r2_poly_5:.4f}")
+    print(f"R² Polynomial(8) : {r2_poly_8:.4f}")
 
     plt.figure(figsize=(8, 5))
     plt.scatter(x_data, y_data, label="Observed", color="steelblue")
@@ -316,6 +320,8 @@ def parametric_fitting(bin_sub, count, title):
     plt.plot(x_smooth, poly_fit_3(x_smooth), color='mediumpurple', linestyle="-", label=f'Polynomial(3) fit (R²={r2_poly_3:.3f})')
     plt.plot(x_smooth, poly_fit_4(x_smooth), color='darkorange', linestyle="-", label=f'Polynomial(4) fit (R²={r2_poly_4:.3f})')
     plt.plot(x_smooth, poly_fit_5(x_smooth), color='gold', linestyle="-", label=f'Polynomial(5) fit (R²={r2_poly_5:.3f})')
+    plt.plot(x_smooth, poly_fit_8(x_smooth), color='black', linestyle="-", label=f'Polynomial(8) fit (R²={r2_poly_8:.3f})')
+
     plt.title(f"Parametric fitting of LD histogram ({title})")
     plt.xlabel("LD value (bin center)")
     plt.ylabel("Number of lines")
