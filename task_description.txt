@@ -1,0 +1,66 @@
+Project 11 Hate and Love in Poetry
+This project aims to explore the Hate and Love poetry in Gutenberg. For this purpose, focus on the poetry books
+in http://www.gutenberg.org. The use your own methodology to identify list of poem books related to Hate and
+another list of poem books related to Love. Construct a dataframe for Hate’s ebooks and another one for Love’s
+ebook
+
+1. Use appropriate NLTK coding (you can inspire from coding examples of the online NLTK book) to
+generate high level statistical description of each dataframe in terms of number of tokens, vocabulary
+size, number of ebooks. Present the result in a table.
+
+2. Use the information about the date of publication to construct a histogram showing the number of
+publication of each category in each time period.
+
+3. Now we want to comprehend the occurrence of hate and love wording in these poems. For this purpose,
+consider the list of terms, which are strongly connected to Love, and another list of words strongly
+connected to Hate. Use synonymy relations and other external dictionary of your choice to generate this
+list. Next, for each dataframe, suggest a script that quantifies the proportion of hate related words and
+love related words in each category and present the result in a histogram.
+
+4. Next, we want to explore how the context of these words were employed in each dataframe. For this
+purpose, suggest a script that scans for each occurrence of hate or love related words appearance to
+retrieve the words that appear within 2-token distance on the left and right hand side of the target word.
+Finally identify the frequency of these words in each dataframe. Present the results as wordcloud
+illustration showing the context of hate occurrence and another one for Love occurrence in each
+dataframe. Comment on the interpretation of these results.
+
+5. Next, we want to comprehend the sequential occurrence of Love related words and Hate related words in
+each dataframe. For this purpose, suggest a script that calculates the distance (in terms of number of 
+tokens) between one hate-related word to the immediate next one in the dataframe, and another one for
+computing the distance between love-related word and the next one. Use appropriate discretization
+(taking into account the difference between the maximum and minimum distance) to construct a 10-bin
+histogram showing the frequency of each distance range for both Hate and Love related terms.
+
+6. Repeat the specification 5), when we consider the distance between a hate-related word and the next
+love-related term. Comment on the result regarding the possible asymmetry of the results, and how this
+can be linked to the context words identified in specification 4.
+
+7. Use appropriate script to identify the 100-most frequent tokens of each dataframe outside the stopword
+list. We want to evaluate the extent to which hate and love related terms are related the most frequent
+terms. Suggest an approach to evaluate this proximity using both string matching and semantic
+similarity.
+
+8. Repeat the specification 7) when working for each poem in dataframe Love and each poem of dataframe
+hate.
+
+9. We want to test the diversity of each dataframe. For this purpose, we consider the titles of the poems in
+each dataframe. Suggest a script that uses FastText embedding to calculate the similarity between any
+pairs of titles in each dataframe using cosine similarity and assuming the embedding of the title is the
+average of the embedding of its constituted words. Calculate the average semantic similarity measures of
+all pairs and their associated standard deviation, maximum and minimum value.
+
+10. We now consider the lexical diversity LD in the poem. This can be expressed using the
+adjective/adverb-to-verb ratio (number of adjectives and adverbs to the number of verbs) in each line of
+the poem. For this, you may select one poem at random from the first dataframe and another one from
+the second dataframe (You may also select the poem whose title brings the highest similarity with the
+hate/love related terms for instance, or any other reasoning). Using part-of-speech tagging that identifies
+verb, adjective and adverb entities, suggest a program that calculates LD for each line of the code. Save
+the result in the database. Plot the graph of LD. Suggest a 10-equal subdivision of values of LD (take the
+highest value of LD and subtract the smallest value of LD and divide by 10 to find the bin value, and
+then take the smallest of LD and add bin, then 2*bin, etc.. to find the next interval (You will end up with
+10 intervals). Now calculate and plot the corresponding histogram (calculating the number of lines of
+poem whose LD value fall within a specific interval). Find out whether a parametric fitting (polynomial,
+logarithmic or exponential) can be achieved. Perform this process for both poems in each dataframe.
+
+11. Discuss your results with respect to existing literature regarding poem structures and artistic trends of
+your choice taking into account the status and type of poetry of the ebooks you used for this analysis. 

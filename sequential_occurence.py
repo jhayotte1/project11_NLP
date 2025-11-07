@@ -7,9 +7,11 @@ from nltk.tokenize import word_tokenize
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from nltk.stem import PorterStemmer
 
 nltk.download('punkt')
 def distances_between_words(poem_list, vocab):
+    stemmer = PorterStemmer()
     distances = []
      
     for poem in tqdm(poem_list, desc="Going through poems"):
@@ -17,7 +19,7 @@ def distances_between_words(poem_list, vocab):
         words = word_tokenize(poem.lower())
 
         for word in words:
-            if word in vocab:
+            if stemmer.stem(word) in vocab:
                 distances.append(distance) 
                 distance = 0
             else:
@@ -35,18 +37,10 @@ if __name__ == "__main__":
     love_in_hate_distances = distances_between_words(hate_texts,love_vocab)
     hate_in_hate_distances = distances_between_words(hate_texts,hate_vocab)
 
-    # print(love_in_love_distances[:20])
-    # print(hate_in_love_distances[:20])
-    # print(love_in_hate_distances[:20])
-    # print(hate_in_hate_distances[:20])
-
-
     data = pd.DataFrame({
-        'Distances': love_in_love_distances + hate_in_love_distances + love_in_hate_distances + hate_in_hate_distances,
-        'Type': ['Love in Love']*len(love_in_love_distances) + \
-                ['Hate in Love']*len(hate_in_love_distances) + \
-                ['Love in Hate']*len(love_in_hate_distances) + \
-                ['Hate in Hate']*len(hate_in_hate_distances)
+        'Distances': hate_in_hate_distances + hate_in_love_distances,
+        'Type': ['Hate Vocabulary in Hate']*len(hate_in_hate_distances) + \
+                ['Hate Vocabulary in Love']*len(hate_in_love_distances)
     })
     
     # We here only include the the 90% interval of these values
@@ -54,9 +48,24 @@ if __name__ == "__main__":
     max_distance = data['Distances'].quantile(0.95)
     data_filtered = data[data['Distances'] <= max_distance]
                                            
-    sns.histplot(data=data_filtered, x='Distances', hue='Type', bins=10, multiple='dodge', palette=['r','g','b','y'])
+    sns.histplot(data=data_filtered, x='Distances', hue='Type', bins=10, multiple='dodge', palette=['r','g'])
     plt.xlabel("Distances")
     plt.ylabel("Occurences")
-    plt.title("Distances between Love and Hate related words in Love and Hate poems")
-    plt.savefig(os.path.join("img", "love_and_hate_distances.png"))
+    plt.title("Distances between Hate vocabulary words in Love and Hate poems")
+    plt.savefig(os.path.join("img", "love_and_hate_distances_love.png"))
+    plt.close()
 
+    data = pd.DataFrame({
+        'Distances': love_in_hate_distances + love_in_love_distances,
+        'Type': ['Love Vocabulary in Hate']*len(love_in_hate_distances) + \
+                ['Love Vocabulary in Love']*len(love_in_love_distances)
+    })
+    
+    max_distance = data['Distances'].quantile(0.95)
+    data_filtered = data[data['Distances'] <= max_distance]
+                                           
+    sns.histplot(data=data_filtered, x='Distances', hue='Type', bins=10, multiple='dodge', palette=['r','g'])
+    plt.xlabel("Distances")
+    plt.ylabel("Occurences")
+    plt.title("Distances between Love vocabulary in Hate and Love poems")
+    plt.savefig(os.path.join("img", "love_and_hate_distances_hate.png"))

@@ -10,6 +10,10 @@ import requests
 from tqdm import tqdm
 from nltk import pos_tag, word_tokenize
 from sklearn.metrics.pairwise import cosine_similarity
+<<<<<<< HEAD
+=======
+from scipy.optimize import curve_fit
+>>>>>>> random_picking
 
 
 try:
@@ -22,6 +26,14 @@ try:
 except:
     nltk.download('punkt')
 
+<<<<<<< HEAD
+=======
+try:
+    nltk.data.find('corpora/stopwords')
+except LookupError:
+    nltk.download('stopwords')
+
+>>>>>>> random_picking
 
 MODEL_BIN = "cc.en.300.bin"
 DATA_PATH_CSV = "data/csv"
@@ -242,6 +254,101 @@ def plot_hist(bin_sub, count, love):
 
     plt.show()
 
+<<<<<<< HEAD
+=======
+def expo(x, a, b, c):
+    return a*np.exp(-b*x) + c
+
+def log_func(x, a, b):
+    return a * np.log(x + 1e-6) + b #to avoid log(0)
+
+def poly(x, y, deg):
+    try:
+        poly_coeffs = np.polyfit(x, y, deg)
+        poly_fit = np.poly1d(poly_coeffs)
+        return poly_fit
+    except np.linalg.LinAlgError:
+        print(f"Polyfit failed for degree {deg}")
+        return None
+
+def r2_score(y_true, y_pred):
+    ss_res = np.sum((y_true - y_pred)**2)
+    ss_tot = np.sum((y_true - np.mean(y_true))**2)
+    return 1 - ss_res/ss_tot
+
+def parametric_fitting(bin_sub, count, title):
+    x = np.array([(bin_sub[i] + bin_sub[i+1])/2 for i in range(len(bin_sub)-1)])
+    y = np.array(count)
+
+    x_data = x
+    y_data = y
+    x_smooth = np.linspace(x_data.min(), x_data.max(), 300)
+
+    try:
+        params_exp, _ = curve_fit(expo, x, y, p0=(max(y), 1, min(y)))
+        y_exp = expo(x, *params_exp)
+    except RuntimeError:
+        y_exp = np.zeros_like(y)
+    
+    try:
+        params_log, _ = curve_fit(log_func, x, y, p0=(1, 1))
+        y_log = log_func(x, *params_log)
+    except RuntimeError:
+        y_log = np.zeros_like(y)
+    
+    poly_fit_2 = poly(x, y, 2)
+    poly_fit_3 = poly(x, y, 3)
+    poly_fit_4 = poly(x, y, 4)
+    poly_fit_5 = poly(x, y, 5)
+    poly_fit_8 = poly(x, y, 8)
+    y_poly_2 = poly_fit_2(x)
+    y_poly_3 = poly_fit_3(x)
+    y_poly_4 = poly_fit_4(x)
+    y_poly_5 = poly_fit_5(x)
+    y_poly_8 = poly_fit_8(x)
+
+
+    r2_exp = r2_score(y, y_exp)
+    r2_log = r2_score(y, y_log)
+    r2_poly_2 = r2_score(y, y_poly_2)
+    r2_poly_3 = r2_score(y, y_poly_3)
+    r2_poly_4 = r2_score(y, y_poly_4)
+    r2_poly_5 = r2_score(y, y_poly_5)
+    r2_poly_8 = r2_score(y, y_poly_8)
+
+    print(f"Parametric fitting for {title}")
+    print(f"R² Exponential : {r2_exp:.4f}")
+    print(f"R² Logarithmic : {r2_log:.4f}")
+    print(f"R² Polynomial(2) : {r2_poly_2:.4f}")
+    print(f"R² Polynomial(3) : {r2_poly_3:.4f}")
+    print(f"R² Polynomial(4) : {r2_poly_4:.4f}")
+    print(f"R² Polynomial(5) : {r2_poly_5:.4f}")
+    print(f"R² Polynomial(8) : {r2_poly_8:.4f}")
+
+    plt.figure(figsize=(8, 5))
+    plt.scatter(x_data, y_data, label="Observed", color="steelblue")
+    plt.plot(x_smooth, expo(x_smooth, *params_exp), color='crimson', linestyle="-", label=f'Exponential fit (R²={r2_exp:.3f})')
+    plt.plot(x_smooth, log_func(x_smooth, *params_log), color='seagreen', linestyle="-", label=f'Logarithmic fit (R²={r2_log:.3f})')
+    plt.plot(x_smooth, poly_fit_2(x_smooth), color='royalblue', linestyle="-", label=f'Polynomial(2) fit (R²={r2_poly_2:.3f})')
+    plt.plot(x_smooth, poly_fit_3(x_smooth), color='mediumpurple', linestyle="-", label=f'Polynomial(3) fit (R²={r2_poly_3:.3f})')
+    plt.plot(x_smooth, poly_fit_4(x_smooth), color='darkorange', linestyle="-", label=f'Polynomial(4) fit (R²={r2_poly_4:.3f})')
+    plt.plot(x_smooth, poly_fit_5(x_smooth), color='gold', linestyle="-", label=f'Polynomial(5) fit (R²={r2_poly_5:.3f})')
+    plt.plot(x_smooth, poly_fit_8(x_smooth), color='black', linestyle="-", label=f'Polynomial(8) fit (R²={r2_poly_8:.3f})')
+
+    plt.title(f"Parametric fitting of LD histogram ({title})")
+    plt.xlabel("LD value (bin center)")
+    plt.ylabel("Number of lines")
+    plt.legend()
+    plt.grid(True, linestyle="--", alpha=0.4)
+    plt.tight_layout()
+    plt.savefig(os.path.join("img", f"LD_parametric_fitting_{title}.png"))
+    plt.show()
+
+
+
+
+
+>>>>>>> random_picking
 
 
 if __name__ == "__main__":
@@ -264,7 +371,10 @@ if __name__ == "__main__":
     df_hate["vectors"] = df_hate.iloc[:, 1].apply(title_to_vector)
 
     df_love["sim_to_vocab"] = df_love["vectors"].apply(sim_to_love_vocab)
+<<<<<<< HEAD
     # apply sim_to_hate_vocab to hate vectors (was mistakenly using df_love)
+=======
+>>>>>>> random_picking
     df_hate["sim_to_vocab"] = df_hate["vectors"].apply(sim_to_hate_vocab)
 
     max_love_sim_to_vocab = get_max_sim_to_vocab(df_love)
@@ -284,12 +394,29 @@ if __name__ == "__main__":
     save_list_to_csv(hate_poem_LD, love=False)
 
     plot_LD("LD_love_poem.csv", love=True)
+<<<<<<< HEAD
     plot_LD("LD_hate_poem_noskip.csv", love=False)
+=======
+    plot_LD("LD_hate_poem.csv", love=False)
+>>>>>>> random_picking
 
     df_love_LD = pd.read_csv(os.path.join(DATA_PATH_LD, "LD_love_poem.csv"))
     df_hate_LD = pd.read_csv(os.path.join(DATA_PATH_LD, "LD_hate_poem.csv"))
 
+<<<<<<< HEAD
     plot_hist(bin_subdivision(love=True), get_number_per_bin_love(df_love_LD), love=True)
     plot_hist(bin_subdivision(love=False), get_number_per_bin_love(df_hate_LD), love=False)
+=======
+    bin_love = bin_subdivision(love=True)
+    count_love = get_number_per_bin_love(df_love_LD)
+    bin_hate = bin_subdivision(love=False)
+    count_hate = get_number_per_bin_love(df_hate_LD)
+
+    plot_hist(bin_love, count_love, love=True)
+    plot_hist(bin_hate, count_hate, love=False)
+
+    parametric_fitting(bin_love, count_love, "love_poem")
+    parametric_fitting(bin_hate, count_hate, "hate_poem")
+>>>>>>> random_picking
 
 ##END OF SECTION

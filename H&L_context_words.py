@@ -3,6 +3,7 @@ import pandas as pd
 import spacy
 import matplotlib.pyplot as plt
 from spacy.matcher import Matcher
+from spacy.cli import download
 from collections import Counter
 from tqdm import tqdm
 from typing import Iterable, Tuple, Dict, Set, Optional
@@ -24,7 +25,12 @@ PARTIAL_DIR = "data/csv/partial_context_count"
 OUT_DIR = "data/csv/context_count"
 
 #spaCy Pipeline
-nlp = spacy.load("en_core_web_sm", disable=["ner", "parser", "textcat"])
+try:
+    nlp = spacy.load("en_core_web_sm", disable=["ner", "parser", "textcat"])
+except OSError:
+    download("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm", disable=["ner", "parser", "textcat"])
+
 nlp.max_length = 20_000_000
 
 hate_vocab = {
@@ -289,13 +295,13 @@ if __name__ == "__main__":
 
     print("Counting love contexts...")
 
-    #print("LOVE-in-LOVE ...")
-    #love_in_love = counter_context_stream(
-    #    LOVE_CSV, love_matcher, nlp, TEXT_COLUMN, CHUNK_TOKENS, overlap_love, out_partial=os.path.join(PARTIAL_DIR, "love_in_love_partial.csv")
-    #)
-    #pd.Series(love_in_love).sort_values(ascending=False).to_csv(os.path.join(OUT_DIR, "love_in_love_counts.csv"))
+    print("LOVE-in-LOVE ...")
+    love_in_love = counter_context_stream(
+       LOVE_CSV, love_matcher, nlp, TEXT_COLUMN, CHUNK_TOKENS, overlap_love, out_partial=os.path.join(PARTIAL_DIR, "love_in_love_partial.csv")
+    )
+    pd.Series(love_in_love).sort_values(ascending=False).to_csv(os.path.join(OUT_DIR, "love_in_love_counts.csv"))
 
-    love_in_love = csv_to_counter(os.path.join(OUT_DIR, "love_in_love_counts.csv"))
+    # love_in_love = csv_to_counter(os.path.join(OUT_DIR, "love_in_love_counts.csv"))
 
     print("HATE-in-LOVE ...")
     hate_in_love = counter_context_stream(

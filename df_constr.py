@@ -3,6 +3,7 @@ import json, os
 from rdflib import Graph, Namespace
 from rdflib.namespace import DCTERMS, RDF
 from tqdm import tqdm
+from numpy.random import choice
 
 CACHE_DIR = "data/cache"
 POETRY_IDS_PATH = os.path.join(CACHE_DIR, "poetry_ids.json")
@@ -208,8 +209,8 @@ if __name__ == "__main__":
     # Balance dataset by limiting to the first 250
 
     limit = 250
-    save_poetry_ids(love_ids[:limit], LOVE_IDS_PATH)
-    save_poetry_ids(hate_ids[:limit], HATE_IDS_PATH)
+    save_poetry_ids(choice(love_ids, size=limit, replace=False), LOVE_IDS_PATH)
+    save_poetry_ids(choice(hate_ids, size=limit, replace=False), HATE_IDS_PATH)
 
     print("Total number of poetry books found : ", len(poetry_ids))
     print("Total number of Love poetry books found : ", len(love_ids))

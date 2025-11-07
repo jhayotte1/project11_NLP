@@ -7,9 +7,11 @@ from nltk.tokenize import word_tokenize
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from nltk.stem import PorterStemmer
 
 nltk.download('punkt')
 def distances_between_differing_words(poem_list, vocab1, vocab2):
+    stemmer = PorterStemmer()
     distances = []
      
     for poem in tqdm(poem_list, desc="Going through poems"):
@@ -19,7 +21,7 @@ def distances_between_differing_words(poem_list, vocab1, vocab2):
         vocabs = [vocab1,vocab2] 
         switch = 0
         for word in words:
-            if word in vocabs[switch]:
+            if stemmer.stem(word) in vocabs[switch]:
                 distances.append(distance) 
                 distance = 0
                 switch ^= 1
