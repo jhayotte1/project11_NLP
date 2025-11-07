@@ -1,5 +1,7 @@
 # project11_NLP
 Project 11 : Natural Language Processing : Love and Hate in Poetry
+A detailled description of the project and the objectives of each task can be found in :
+['task_description.txt'](task_description.txt) 
 
 # Prerequisites
 
@@ -15,6 +17,38 @@ project11_NLP/
 │       └── epub/
 │           └── (RDF FILES)
 ```
+
+## Project hierarchy
+
+After running the scripts, the project structure is as follows :
+
+```
+project11_NLP/
+├── gutenberg_rdf/
+│   └── cache/
+│       └── epub/
+│           └── (RDF FILES)
+├──data/
+│   └── cache/ 
+│   └── csv/
+│       └── context_count/
+│       └── partial_context_count/
+│       └── hate.csv
+│       └── love.csv
+│   └── lexical_diversity/
+│   └── texts/
+├──img/
+├──script1.py
+├──script2.py
+├──script3.py
+└──...
+
+```
+
+ - The **`img/`** contains the results and figures generated for each tasks (detailled in bellow).
+ - In **`data/csv/`**, the files `hate.csv` and `love.csv` correspond to the Hate and Love DataFrames used across all scripts. 
+ - The **`data/text/`** folder contains the raw text of the downloaded e-books. 
+ - All other folders and files inside **`data/`** are intermediate outputs used to stored processed data and plotting results.  
 
 ## Dependencies
 
@@ -34,7 +68,7 @@ pip install -r requirements.txt
 
 ## 1
 
-Task is implemented in ['dataframe_stat.py'](dataframe_stat.py)
+Task is implemented in [`dataframe_stat.py`](dataframe_stat.py)
 
 ![DataFrame description table (Number of token, vocabulary size, number of books)](./img/dataframe_description_table.png)
 
@@ -46,13 +80,13 @@ Task is implemented in [`histogram_of_publication.py`](histogram_of_publication.
 
 ## 3
 
-Task is implemented in ['hate_and_love_terms_proportions.py'](hate_and_love_terms_proportions.py)
+Task is implemented in [`hate_and_love_terms_proportions.py`](hate_and_love_terms_proportions.py)
 
 ![Love and Hate words quantified](./img/love_and_hate_words.png)
 
 ## 4
 
-Task is implemented in ['H&L_context_words.py'](H&L_context_words.py)
+Task is implemented in [`H&L_context_words.py`](H&L_context_words.py)
 
 ![Love in Love dataframe context word wordcloud](./img/love_in_love_context_wordcloud.png)
 ![Love in Hate dataframe context word wordcloud](./img/love_in_hate_context_wordcloud.png)
@@ -83,13 +117,13 @@ Love & Hate Vocab: 0.3427005112171173
 ``` 
 
 ## 9
-
-Task is implemented in ['df_titles_diversity.py'](df_titles_diversity.py)
+Task is implemented in [`df_titles_diversity.py`](df_titles_diversity.py)
 ![Diversity of each dataframe using similarity among title of ebooks](./img/dataframes_title_similarity.png)
 
 ## 10
 
-Task is implemented in ['lexical_diversity.py'](lexical_diversity.py)
+Task is implemented in [`lexical_diversity.py`](lexical_diversity.py)
+
 ![Lexical Diversity graph line per line of Love poem](LD_love_graph.png)
 ![Lexical Diversity graph line per line of Hate poem](LD_hate_graph.png)
 ![Lexical Diversity histogram Love poem](LD_love_subdiv_histogram.png)
@@ -98,4 +132,3 @@ Task is implemented in ['lexical_diversity.py'](lexical_diversity.py)
 ![Lexical Diversity parametric fitting Hate poem](LD_parametric_fitting_hate_poem.png)
 
 
-## 11
