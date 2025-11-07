@@ -10,10 +10,7 @@ import requests
 from tqdm import tqdm
 from nltk import pos_tag, word_tokenize
 from sklearn.metrics.pairwise import cosine_similarity
-<<<<<<< HEAD
-=======
 from scipy.optimize import curve_fit
->>>>>>> random_picking
 
 
 try:
@@ -26,14 +23,11 @@ try:
 except:
     nltk.download('punkt')
 
-<<<<<<< HEAD
-=======
 try:
     nltk.data.find('corpora/stopwords')
 except LookupError:
     nltk.download('stopwords')
 
->>>>>>> random_picking
 
 MODEL_BIN = "cc.en.300.bin"
 DATA_PATH_CSV = "data/csv"
@@ -206,7 +200,10 @@ def plot_LD(data: str, love: bool):
     df = pd.read_csv(os.path.join(DATA_PATH_LD, data))
     plt.figure(figsize=(10, 5))
     plt.scatter(df["line_index"], df["LD_value"], color="steelblue", alpha=0.7, s=5)
-    plt.title("Lexical Diversity (ADJ+ADV / VERB) per line")
+    if love:
+        plt.title("Lexical Diversity (ADJ+ADV / VERB) per line - Love poem")
+    else:
+        plt.title("Lexical Diversity (ADJ+ADV / VERB) per line - Hate poem")
     plt.xlabel("Line index")
     plt.ylabel("LD value")
     plt.grid(True, linestyle="--", alpha=0.4)
@@ -254,8 +251,6 @@ def plot_hist(bin_sub, count, love):
 
     plt.show()
 
-<<<<<<< HEAD
-=======
 def expo(x, a, b, c):
     return a*np.exp(-b*x) + c
 
@@ -348,7 +343,6 @@ def parametric_fitting(bin_sub, count, title):
 
 
 
->>>>>>> random_picking
 
 
 if __name__ == "__main__":
@@ -371,10 +365,6 @@ if __name__ == "__main__":
     df_hate["vectors"] = df_hate.iloc[:, 1].apply(title_to_vector)
 
     df_love["sim_to_vocab"] = df_love["vectors"].apply(sim_to_love_vocab)
-<<<<<<< HEAD
-    # apply sim_to_hate_vocab to hate vectors (was mistakenly using df_love)
-=======
->>>>>>> random_picking
     df_hate["sim_to_vocab"] = df_hate["vectors"].apply(sim_to_hate_vocab)
 
     max_love_sim_to_vocab = get_max_sim_to_vocab(df_love)
@@ -394,19 +384,11 @@ if __name__ == "__main__":
     save_list_to_csv(hate_poem_LD, love=False)
 
     plot_LD("LD_love_poem.csv", love=True)
-<<<<<<< HEAD
-    plot_LD("LD_hate_poem_noskip.csv", love=False)
-=======
     plot_LD("LD_hate_poem.csv", love=False)
->>>>>>> random_picking
 
     df_love_LD = pd.read_csv(os.path.join(DATA_PATH_LD, "LD_love_poem.csv"))
     df_hate_LD = pd.read_csv(os.path.join(DATA_PATH_LD, "LD_hate_poem.csv"))
 
-<<<<<<< HEAD
-    plot_hist(bin_subdivision(love=True), get_number_per_bin_love(df_love_LD), love=True)
-    plot_hist(bin_subdivision(love=False), get_number_per_bin_love(df_hate_LD), love=False)
-=======
     bin_love = bin_subdivision(love=True)
     count_love = get_number_per_bin_love(df_love_LD)
     bin_hate = bin_subdivision(love=False)
@@ -417,6 +399,5 @@ if __name__ == "__main__":
 
     parametric_fitting(bin_love, count_love, "love_poem")
     parametric_fitting(bin_hate, count_hate, "hate_poem")
->>>>>>> random_picking
 
 ##END OF SECTION
