@@ -5,3 +5,10 @@ pandas
 numpy
 fasttext
 fuzzywuzzy
+spaCy
+nltk
+matplotlib
+seaborn
+wordcloud
+scikit-learn
+scipy

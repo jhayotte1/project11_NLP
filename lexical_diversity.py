@@ -23,6 +23,11 @@ try:
 except:
     nltk.download('punkt')
 
+try:
+    nltk.data.find('corpora/stopwords')
+except LookupError:
+    nltk.download('stopwords')
+
 
 MODEL_BIN = "cc.en.300.bin"
 DATA_PATH_CSV = "data/csv"

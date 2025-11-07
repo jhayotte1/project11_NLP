@@ -4,7 +4,7 @@ import json
 import pandas as pd
 import matplotlib.pyplot as plt
 from nltk.tokenize import RegexpTokenizer
-from nltk.corpus import stopwords
+
 
 tok = RegexpTokenizer(r"[A-Za-z]+(?:'[A-Za-z]+)?")
 

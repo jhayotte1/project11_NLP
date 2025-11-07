@@ -3,6 +3,7 @@ import pandas as pd
 import spacy
 import matplotlib.pyplot as plt
 from spacy.matcher import Matcher
+from spacy.cli import download
 from collections import Counter
 from tqdm import tqdm
 from typing import Iterable, Tuple, Dict, Set, Optional
@@ -24,7 +25,12 @@ PARTIAL_DIR = "data/csv/partial_context_count"
 OUT_DIR = "data/csv/context_count"
 
 #spaCy Pipeline
-nlp = spacy.load("en_core_web_sm", disable=["ner", "parser", "textcat"])
+try:
+    nlp = spacy.load("en_core_web_sm", disable=["ner", "parser", "textcat"])
+except OSError:
+    download("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm", disable=["ner", "parser", "textcat"])
+
 nlp.max_length = 20_000_000
 
 hate_vocab = {
