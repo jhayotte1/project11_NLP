@@ -1,4 +1,4 @@
-# project11_NLP
+# Project 11: Love and Hate in Poetry
 Project 11 : Natural Language Processing : Love and Hate in Poetry
 A detailled description of the project and the objectives of each task can be found in :
 ['task_description.txt'](task_description.txt) 
