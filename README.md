@@ -90,31 +90,23 @@ Task is implemented in [`H&L_context_words.py`](H&L_context_words.py)
 
 ![Love in Love dataframe context word wordcloud](./img/love_in_love_context_wordcloud.png)
 ![Love in Hate dataframe context word wordcloud](./img/love_in_hate_context_wordcloud.png)
-![Hate in Love dataframe context word wordcloud](./img/hate_in_love_context_wordcloud.png)
-![Hate in Hate dataframe context word wordcloud](./img/hate_in_hate_context_wordcloud.png)
 
 ## 5
 
-Task is implemented in []()
-![]()
+Task is implemented in [`sequential_occurence.py`](./sequential_occurence.py)
+![Hate vocabulary](./img/love_and_hate_distances_love.png)
+![Love vocabulary](./img/love_and_hate_distances_hate.png)
 
 ## 6
 
-Task is implemented in []()
-![]()
+Task is implemented in [`sequential_occurence_love_then_hate.py`](./sequential_occurence_love_then_hate.py)
+![Differing vocabulary](./img/love_and_hate_distances_differing.png)
 
 ## 7 and 8
 
-Task is implemented in []()
-![]()
+Task is implemented in [`frequent_tokens.py`](./frequent_tokens.py)
+![Frequent tokens similarity measures](./img/frequent_tokens_comparison.png)
 
-Average Semantic Similarity between top 100 frequent words and vocabularies:
-```
-Love & Love Vocab: 0.35974183678627014
-Hate & Love Vocab: 0.3619268536567688
-Hate & Hate Vocab: 0.3463706374168396
-Love & Hate Vocab: 0.3427005112171173
-``` 
 
 ## 9
 Task is implemented in [`df_titles_diversity.py`](df_titles_diversity.py)
@@ -124,11 +116,11 @@ Task is implemented in [`df_titles_diversity.py`](df_titles_diversity.py)
 
 Task is implemented in [`lexical_diversity.py`](lexical_diversity.py)
 
-![Lexical Diversity graph line per line of Love poem](LD_love_graph.png)
-![Lexical Diversity graph line per line of Hate poem](LD_hate_graph.png)
-![Lexical Diversity histogram Love poem](LD_love_subdiv_histogram.png)
-![Lexical Diversity histogram Hate poem](LD_hate_subdiv_histogram.png)
-![Lexical Diversity parametric fitting Love poem](LD_parametric_fitting_love_poem.png)
-![Lexical Diversity parametric fitting Hate poem](LD_parametric_fitting_hate_poem.png)
+![Lexical Diversity graph line per line of Love poem](img/LD_love_graph.png)
+![Lexical Diversity graph line per line of Hate poem](img/LD_hate_graph.png)
+![Lexical Diversity histogram Love poem](img/LD_love_subdiv_histogram.png)
+![Lexical Diversity histogram Hate poem](img/LD_hate_subdiv_histogram.png)
+![Lexical Diversity parametric fitting Love poem](img/LD_parametric_fitting_love_poem.png)
+![Lexical Diversity parametric fitting Hate poem](img/LD_parametric_fitting_hate_poem.png)
 
 
